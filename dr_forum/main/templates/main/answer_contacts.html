@@ -1,0 +1,22 @@
+{% extends 'main/index.html' %}
+
+{% block title %}Thank you{% endblock %}
+
+{% block content %}
+<section class="my-answer-block">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2>Ваше сообщение успешно отправлено!</h2>
+            <p class="lead">Проверьте данные:</p>
+            <p><strong>Имя:</strong> {{ contact.name }}</p>
+            <p><strong>Email:</strong> {{ contact.email }}</p>
+            <p><strong>Тема:</strong> {{ contact.subject }}</p>
+            <p><strong>Сообщение:</strong> {{ contact.message }}</p>
+            <a href="{% url 'contacts' %}" class="btn btn-success mt-3">⬅ Назад к форме</a>
+            <a href="{% url 'contacts_update' contact.id %}" class="btn btn-success mt-3">Change</a>
+            <a href="{% url 'contacts_delete' contact.id %}" class="btn btn-success mt-3">Delete</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
