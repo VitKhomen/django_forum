@@ -1,0 +1,19 @@
+{% extends 'main/index.html' %}
+
+{% block title %}Удалить сообщение{% endblock %}
+
+{% block content %}
+<section class="my-carousel">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center" style="background-color: #343a40!important; color: #fff; padding: 30px;">
+            <h2>Удалить сообщение</h2>
+            <p class="lead">Вы уверены, что хотите удалить сообщение от <strong>{{ object.name }}</strong>?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Удалить</button>
+                <a href="{% url 'contacts_answer' object.pk %}" class="btn btn-outline-light">Отмена</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

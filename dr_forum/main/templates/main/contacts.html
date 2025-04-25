@@ -1,8 +1,7 @@
 {% extends 'main/index.html' %}
 
 {% block title %}title{% endblock %}
-
-{% block content %}
+{% block header %}
 <section class="my-carousel">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -14,6 +13,8 @@
         </div>
     </div>
 </section>
+{% endblock %}
+{% block content %}
 <section class="my-contact-form">
     <div class="container">
         <div class="row justify-content-center">

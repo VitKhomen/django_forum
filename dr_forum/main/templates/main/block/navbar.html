@@ -1,0 +1,50 @@
+{% load static %}
+
+<section class="my-navigation">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="30"
+                    height="30" alt="Python">
+            </a>
+            <a href="#" class="navbar-brand">
+                <img src="{% static 'main/img/001.png' %}" width="30" height="30" alt="Corgi" title="Corgi">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Главная</a>
+                    <a class="nav-link active" href="{% url 'contacts' %}">Контакты</a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <form class="d-flex align-items-center" method="get" action="{% url 'main' %}">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Поиск..."
+                            value="{{ request.GET.q }}">
+                        <button class="btn btn-outline-success me-2" type="submit">Найти</button>
+                    </form>
+
+                    {% if user.is_authenticated %}
+                    <span class="navbar-text me-2 text-white" style="white-space: nowrap;">
+                        Привет, {{ user.username }}!
+                    </span>
+                    <span class="navbar-text me-2" style="white-space: nowrap;">
+                        <a href="{% url 'create_post' %}" class="btn btn-outline-light btn-sm">+ Новый пост</a>
+                    </span>
+                    <a href="{% url 'profile' user.username %}" class="btn btn-outline-light btn-sm me-2">Профиль</a>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm me-2">Выход</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm me-2">Вход</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm me-2">Регистрация</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>

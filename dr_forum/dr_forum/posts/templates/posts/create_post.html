@@ -1,0 +1,59 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block title %}Создание поста{% endblock %}
+
+{% block content %}
+<section class="my-carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-color: #343a40!important">
+            <div class="carousel-caption d-none d-md-block">
+                <h1>Создать новый пост</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="post-create">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">Заполните форму</h2>
+
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+
+                            {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-primary">Создать</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

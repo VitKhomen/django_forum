@@ -3,52 +3,11 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{% block header %}
+{% include 'main/block/slider.html' %}
+{% endblock %}
+
 {% block content %}
-<section class="my-carousel">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{% static 'main/img/slide_1.jpg' %}" class="d-block w-100" alt="Первая картинка">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Это описание первого слайда</h5>
-                    <p>Тут можно писать все что угодно</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'main/img/slide_2.jpg' %}" class="d-block w-100" alt="Вторая картинка">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Это описание второго слайда</h5>
-                    <p>Тут можно писать все что угодно</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'main/img/slide_3.jpg' %}" class="d-block w-100" alt="Третья картинка">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Это описание третьего слайда</h5>
-                    <p>Тут можно писать все что угодно</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</section>
 <section class="all-posts">
     <div class="container">
         <h1 class="my-4 text-center">Последние записи блога</h1>
@@ -88,29 +47,7 @@
         </div>
     </div>
 </section>
-<section class="my-pagination">
-    <nav aria-label="Pagination">
-        <ul class="pagination justify-content-center">
-            {% if posts.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1">Предыдущая</a>
-            </li>
-            {% endif %}
-            {% for num in posts.paginator.page_range %}
-            {% if posts.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-            {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% if posts.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ posts.next_page_number }}">Следующая</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-</section>
+{% include 'main/block/pagination.html' %}
 
 {% endblock %}
 {% block scripts %}

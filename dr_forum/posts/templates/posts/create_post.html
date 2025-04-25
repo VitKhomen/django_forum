@@ -3,17 +3,13 @@
 
 {% block title %}Создание поста{% endblock %}
 
-{% block content %}
-<section class="my-carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color: #343a40!important">
-            <div class="carousel-caption d-none d-md-block">
-                <h1>Создать новый пост</h1>
-            </div>
-        </div>
-    </div>
-</section>
+{% block header %}
+<div class="d-flex justify-content-center align-items-center bg-dark text-white " style="min-height: 20vh;">
+    <h1 class="text-center">Создать новый пост</h1>
+</div>
+{% endblock %}
 
+{% block content %}
 <section class="post-create">
     <div class="container">
         <div class="row">

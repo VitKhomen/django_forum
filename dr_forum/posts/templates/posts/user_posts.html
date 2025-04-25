@@ -3,6 +3,8 @@
 
 {% block title %}{{ title }}{% endblock %}
 
+{%block header %}{% endblock %}
+
 {% block content %}
 <section class="my-carousel">
     <div class="carousel-inner">
@@ -13,6 +15,7 @@
         </div>
     </div>
 </section>
+
 <section class="all-posts">
     <div class="container">
         <div class="row">
@@ -20,7 +23,6 @@
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <a href="{% url 'post_detail' post.pk %}">
-
                         {% if post.image %}
                         <img src="{{ post.image.url }}" alt="Изображение поста" class="card-img-top">
                         {% else %}
@@ -48,31 +50,11 @@
         </div>
     </div>
 </section>
-<section class="my-pagination">
-    <nav aria-label="Pagination">
-        <ul class="pagination justify-content-center">
-            {% if posts.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1">Предыдущая</a>
-            </li>
-            {% endif %}
-            {% for num in posts.paginator.page_range %}
-            {% if posts.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-            {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% if posts.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ posts.next_page_number }}">Следующая</a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
-</section>
 
+
+{% include 'main/block/pagination.html' %}
 {% endblock %}
+
 {% block scripts %}
 <script src="{% static 'main/js/script.js' %}"></script>
 {% endblock %}

@@ -22,6 +22,9 @@ class MainView(View):
         page_obj = paginator.get_page(page_number)
 
         return render(request, 'main/start_page.html', {
-            'posts': page_obj,
+            'posts': page_obj,                    # iterable list
+            'page_obj': page_obj,                 # current page object
+            'paginator': paginator,               # full paginator
+            'is_paginated': page_obj.has_other_pages(),  # bool flag
             'query': query
         })

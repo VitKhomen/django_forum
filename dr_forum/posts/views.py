@@ -28,23 +28,23 @@ class PostCreateView(CreateView):
 
 
 class UserPostListView(ListView):
-    User = get_user_model()
     model = Post
     template_name = 'posts/user_posts.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
     paginate_by = 6
 
     def get_queryset(self):
         username = self.kwargs.get('username')
+        User = get_user_model()
         try:
-            user = self.User.objects.get(username=username)
-        except self.User.DoesNotExist:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
             raise Http404("Пользователь не найден")
         return Post.objects.filter(author=user).order_by('-created_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['username'] = self.kwargs.get('username')
         context['title'] = f"Посты пользователя {self.kwargs.get('username')}"
         return context
 

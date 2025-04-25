@@ -1,0 +1,37 @@
+{% extends 'main/index.html' %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<section class="my-carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-color: #343a40!important">
+            <div class="carousel-caption d-none d-md-block">
+                <h1>Авторизация пользователя</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="my-contact-form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h2 class="mb-4">Войти</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger py-1 px-2 my-error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success">Войти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
