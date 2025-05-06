@@ -3,21 +3,16 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 
+{% block header %}
+
+{% endblock %}
+
 {% block content %}
-<section class="my-carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color: #343a40!important">
-            <div class="carousel-caption d-none d-md-block">
-                <h1>{{ post.title }}</h1>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="card-body card-body-detail">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <div class="card shadow-sm mb-4">
+            <div class="col-md-8">
+                <div class="card shadow-sm mb-4 mt-4">
                     {% if post.image %}
                     <img src="{{ post.image.url }}" alt="Изображение поста" class="card-img-top">
                     {% else %}
@@ -33,16 +28,18 @@
                                 <a href="{% url 'main' %}" class="btn btn btn-secondary">На
                                     главную</a>
                                 {% if user.is_authenticated and user == post.author %}
-                                <a href="{% url 'post_update' post.pk %}" class="btn btn btn-warning">✏️
+                                <a href="{% url 'post_update' slug=post.url %}" class="btn btn btn-warning">✏️
                                     Изменить</a>
-                                <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger ms-auto">Удалить
+                                <a href="{% url 'post_delete' slug=post.url %}" class="btn btn-danger ms-auto">Удалить
                                     пост</a>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+                {% include 'main/block/comments.html' %}
             </div>
+            {% include 'main/block/aside.html' %}
         </div>
     </div>
 </section>

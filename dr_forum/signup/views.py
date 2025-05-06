@@ -1,14 +1,14 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from .forms import CustomUserCreationForm, UserLoginForm
-from .models import CustomUser
+from signup.forms import CustomUserCreationForm, UserLoginForm
+from signup.models import CustomUser
 from posts.models import Post
+from utils.models import SlugMixin
 
 
 class RegisterView(CreateView):
@@ -34,9 +34,13 @@ class LogoutView(LogoutView):
     next_page = reverse_lazy('main')
 
 
-@login_required
-def profile_view(request, username):
-    user_profile = get_object_or_404(CustomUser, username=username)
-    user_posts = Post.objects.filter(
-        author=user_profile).order_by('-created_at')
-    return render(request, 'signup/profile.html', {'user_profile': user_profile, 'user_posts': user_posts})
+class ProfileView(LoginRequiredMixin, SlugMixin, DetailView):
+    model = CustomUser
+    template_name = 'signup/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_posts'] = Post.objects.filter(
+            author=self.object
+        ).order_by('-created_at')
+        return context

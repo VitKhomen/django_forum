@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.db import models
 
+from utils.models import SlugifyMixin
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -19,9 +21,10 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class CustomUser(SlugifyMixin, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=255, blank=True)
+    username = models.CharField(max_length=100, unique=True)
+    url = models.SlugField(unique=True, blank=True, max_length=100)
     avatar = models.ImageField(
         upload_to='avatars/', default='avatars/avatar.png')
     is_active = models.BooleanField(default=True)

@@ -4,36 +4,39 @@ from django.urls import reverse_lazy
 
 from contacts.forms import ContactsForm
 from contacts.models import Contacts
+from utils.models import SlugMixin
 
 
 class ContactsCreateView(CreateView):
     model = Contacts
     form_class = ContactsForm
-    template_name = 'main/contacts.html'
+    template_name = 'contacts/contacts.html'
 
     def form_valid(self, form):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('contacts_answer', kwargs={'pk': self.object.pk})
+        return reverse_lazy('contacts_answer', kwargs={'slug': self.object.url})
 
 
-class ContactsDetailView(DetailView):
+class ContactsDetailView(SlugMixin, DetailView):
     model = Contacts
-    template_name = 'main/answer_contacts.html'
+    template_name = 'contacts/answer_contacts.html'
     context_object_name = 'contact'
 
 
-class ContactsUpdateView(UpdateView):
+class ContactsUpdateView(SlugMixin, UpdateView):
     model = Contacts
     form_class = ContactsForm
-    template_name = 'main/update_contact.html'
+    template_name = 'contacts/update_contact.html'
+    context_object_name = 'contact'
 
     def get_success_url(self):
-        return reverse_lazy('contacts_answer', kwargs={'pk': self.object.pk})
+        return reverse_lazy('contacts_answer', kwargs={'slug': self.object.url})
 
 
-class ContactsDeleteView(DeleteView):
+class ContactsDeleteView(SlugMixin, DeleteView):
     model = Contacts
-    template_name = 'main/delete_contact.html'
+    template_name = 'contacts/delete_contact.html'
+    context_object_name = 'contact'
     success_url = reverse_lazy('contacts')

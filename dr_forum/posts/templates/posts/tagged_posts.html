@@ -1,0 +1,62 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block title %}Search {{ tag }}{% endblock %}
+
+{% block header %}
+<section class="my-carousel">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-color: #343a40!important">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Пошук по тегу "{{ tag }}"</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="all-posts">
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <a href="{% url 'post_detail' slug=post.url %}">
+                        {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="Изображение поста" class="card-img-top">
+                        {% else %}
+                        <img src="{% static 'main/img/002.jpg' %}" alt="Заглушка изображения" class="card-img-top">
+                        {% endif %}
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <p class="card-text">{{ post.description|slice:":300" }}...</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'post_detail' slug=post.url %}"
+                                    class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                            </div>
+                            <small class="text-muted">{{ post.created_at|date:"d.m.Y" }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">Нет постов для отображения.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% include 'main/block/pagination.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'main/js/script.js' %}"></script>
+{% endblock %}

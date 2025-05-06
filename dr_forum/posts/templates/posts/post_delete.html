@@ -1,19 +1,14 @@
 {% extends 'main/index.html' %}
 {% load static %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}Удалить пост{% endblock %}
+
+{% block header %}
+{% include 'main/block/header.html' %}
+{% endblock %}
 
 {% block content %}
-<section class="my-carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color: #343a40!important">
-            <div class="carousel-caption d-none d-md-block">
-                <h1>Удалить пост</h1>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="post-delete">
+<section class="post-delete mt-4 mb-4">
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -33,7 +28,8 @@
                                 {% csrf_token %}
                                 <div class="d-flex flex-wrap gap-2 mt-3">
                                     <a href="{% url 'main' %}" class="btn btn-secondary">На главную</a>
-                                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-warning">✏️ К посту</a>
+                                    <a href="{% url 'post_detail' slug=post.url %}" class="btn btn-warning">✏️ К
+                                        посту</a>
                                     <button type="submit" class="btn btn-danger ms-auto">Удалить пост</button>
                                 </div>
                             </form>

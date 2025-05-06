@@ -3,17 +3,11 @@
 
 {% block title %}Редактировать: {{ post.title }}{% endblock %}
 
-{% block content %}
-<section class="my-carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active" style="background-color: #343a40!important">
-            <div class="carousel-caption d-none d-md-block">
-                <h1>Редактировать пост</h1>
-            </div>
-        </div>
-    </div>
-</section>
+{% block header %}
+{% include 'main/block/header.html' %}
+{% endblock %}
 
+{% block content %}
 <section class="post-update">
     <div class="container">
         <div class="row">
@@ -31,8 +25,8 @@
 
                             <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="submit" class="btn btn-success">💾 Сохранить</button>
-                                <a href="{% url 'post_detail' post.pk %}" class="btn btn-secondary">⬅ Отмена</a>
-                                <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Удалить
+                                <a href="{% url 'post_detail' slug=post.url %}" class="btn btn-secondary">⬅ Отмена</a>
+                                <a href="{% url 'post_delete' slug=post.url %}" class="btn btn-danger">Удалить
                                     пост</a>
                             </div>
                         </form>

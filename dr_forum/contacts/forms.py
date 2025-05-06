@@ -7,7 +7,7 @@ from contacts.models import Contacts
 class ContactsForm(forms.ModelForm):
     class Meta:
         model = Contacts
-        fields = '__all__'
+        fields = ['name', 'email', 'title', 'message']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -19,7 +19,7 @@ class ContactsForm(forms.ModelForm):
                 'placeholder': 'Email',
                 'required': 'required'
             }),
-            'subject': forms.TextInput(attrs={
+            'title': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Subject',
                 'required': 'required'
@@ -38,7 +38,7 @@ class ContactsForm(forms.ModelForm):
             'email': {
                 'required': '⚠️ Email required.',
             },
-            'subject': {
+            'title': {
                 'required': '⚠️ Enter subject.',
             },
             'message': {

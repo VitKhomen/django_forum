@@ -15,32 +15,25 @@ body {
     flex: 1;
 }
 
-.my-carousel {
-    margin-left: 100px;
-    margin-right: 100px;
-    padding: 10px;
-    background-color: rgb(6, 14, 9);
-}
 
 .my-carousel h5{
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .my-carousel p{
     font-size: 30px;
 }
 .carousel-caption {
-    bottom: 100px;
+    bottom: 50px;
 }
 
 .carousel-item {
-    height: 20rem; /* или auto, или max-height */
+    height: 15rem; /* или auto, или max-height */
     text-align: center; /* если нужно центрировать */
 }
 
 .carousel-item img {
     height: 100%;
-    width: 100%;
     object-fit: cover; /* главное — вот это! */
 }
 
@@ -130,4 +123,10 @@ body {
 .card img:hover {
     opacity: 0.7;
     transition: opacity 0.3s ease;
+}
+
+.card-header {
+    background-color: #c3c3c3;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
 }

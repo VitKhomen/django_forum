@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="col-md-4">
+    <div class="card my-4">
+        <h5 class="card-header">Популярні Тегі</h5>
+        <div class="card-body">
+            <div class="d-flex flex-wrap">
+                {% for tag in popular_tags %}
+                <a href="{% url 'tagged_posts' tag.slug %}" class="m-2 h5 text-primary">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="card my-4">
+        <h5 class="card-header">Последние статьи</h5>
+        {% for post in last_posts %}
+        <a href="{% url 'post_detail' slug=post.url %}">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="Изображение поста" class="card-img-top">
+            {% else %}
+            <img src="{% static 'main/img/002.jpg' %}" alt="Заглушка изображения" class="card-img-top">
+            {% endif %}
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.content|slice:":300" }}...</p>
+            <a href="{% url 'post_detail' slug=post.url %}" class="card-link">Ссылка на статью</a>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">Нет постов для отображения.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>

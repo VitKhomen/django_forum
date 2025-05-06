@@ -1,0 +1,40 @@
+{% extends 'main/index.html' %}
+{% load static %}
+{% block title %}Поиск{% endblock %}
+
+{% block header %}
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="background-color: #343a40!important">
+            <div class="carousel-caption d-none d-md-block">
+                <form action="" class="my-2 my-lg-0">
+                    <input name="q" type="text" class="form-control" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-outline-success mt-3" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="my-post-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <h1 class="lead text-center mt-4 mb-4">Найдено записей: {{ count }}</h1>
+                {% for post in posts %}
+                <a href="{% url 'post_detail' slug=post.url %}">
+                    <h2>{{ post.h1 }}</h2>
+                </a>
+                <p>{{ post.description|safe }}</p>
+                <hr>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'main/block/pagination.html' %}
+{% endblock %}

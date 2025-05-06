@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'inside_page',
     'contacts',
     'signup',
     'posts',
+    'taggit',
 ]
 
 MIDDLEWARE = [
