@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('contacts.urls')),
     path('', include('signup.urls')),
     path('', include('posts.urls')),
+    path('', include('comments.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

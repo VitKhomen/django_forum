@@ -19,15 +19,23 @@
                     <img src="{% static 'main/img/placeholder.jpg' %}" alt="Заглушка изображения" class="card-img-top">
                     {% endif %}
                     <div class="card-body-detail">
-                        <form method="post" enctype="multipart/form-data">
+                        <form method="post" novalidate>
                             {% csrf_token %}
-                            {{ form.as_p }}
+
+                            {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% for error in field.errors %}
+                                <div class="alert alert-danger py-1 px-2 my-error">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
 
                             <div class="d-flex flex-wrap gap-2 mt-3">
                                 <button type="submit" class="btn btn-success">💾 Сохранить</button>
                                 <a href="{% url 'post_detail' slug=post.url %}" class="btn btn-secondary">⬅ Отмена</a>
-                                <a href="{% url 'post_delete' slug=post.url %}" class="btn btn-danger">Удалить
-                                    пост</a>
+                                <a href="{% url 'post_delete' slug=post.url %}" class="btn btn-danger">Удалить пост</a>
                             </div>
                         </form>
                     </div>

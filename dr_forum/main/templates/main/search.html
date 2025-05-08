@@ -26,7 +26,7 @@
                 <h1 class="lead text-center mt-4 mb-4">Найдено записей: {{ count }}</h1>
                 {% for post in posts %}
                 <a href="{% url 'post_detail' slug=post.url %}">
-                    <h2>{{ post.h1 }}</h2>
+                    <h2>{{ post.title }}</h2>
                 </a>
                 <p>{{ post.description|safe }}</p>
                 <hr>

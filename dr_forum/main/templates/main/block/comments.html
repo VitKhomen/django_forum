@@ -4,7 +4,7 @@
 <div class="card my-4">
     <h5 class="card-header">Оставить комментарий:</h5>
     <div class="card-body">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" action="{% url 'comment_create' slug=post.url %}">
             {% csrf_token %}
             <div class="form-group mb-3">
 
@@ -20,7 +20,7 @@
 {% endif %}
 
 
-{% for comment in post.comments.all %}
+{% for comment in comments %}
 <div class="d-flex mb-3 p-3 bg-light rounded shadow-sm">
     <div class="flex-shrink-0">
         <img class="rounded-circle img-fluid border" src="{{ comment.author.avatar.url }}" alt=""
@@ -31,6 +31,12 @@
         <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
         <p>{{ comment.text }}</p>
     </div>
+    {% if comment.author == user %}
+    <div class="mt-2">
+        <a href="{% url 'comment_update' comment.pk %}" class="btn btn-sm btn-outline-primary">✏️ Изменить</a>
+        <a href="{% url 'comment_delete' comment.pk %}" class="btn btn-sm btn-outline-danger">🗑️ Удалить</a>
+    </div>
+    {% endif %}
 </div>
 {% empty %}
 <p>Пока нет комментариев.</p>

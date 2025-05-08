@@ -7,10 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from django.http import Http404, HttpResponseRedirect
+from django.contrib.contenttypes.models import ContentType
 
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post
+from .forms import PostForm
 from utils.models import SlugMixin
+from comments.models import Comment
+from comments.forms import CommentForm
 
 
 @method_decorator(login_required, name='dispatch')
@@ -55,32 +58,20 @@ class PostDetailView(View):
 
     def get_context(self, request, slug):
         post = get_object_or_404(Post, url=slug)
+        content_type = ContentType.objects.get_for_model(post)
+        comments = Comment.objects.filter(
+            content_type=content_type, object_id=post.id)
         context = {
             'post': post,
+            'comments': comments,
+            'comment_form': CommentForm(),
             'popular_tags': Post.tags.most_common()[:10],
             'last_posts': Post.objects.all().order_by('-id')[:3],
-            'comment_form': CommentForm()
         }
         return context
 
     def get(self, request, slug, *args, **kwargs):
-        context = self.get_context(request, slug)
-        return render(request, self.template_name, context)
-
-    def post(self, request, slug, *args, **kwargs):
-        comment_form = CommentForm(request.POST)
-        context = self.get_context(request, slug)
-        context['comment_form'] = comment_form
-
-        if comment_form.is_valid():
-            Comment.objects.create(
-                post=context['post'],
-                author=request.user,
-                text=comment_form.cleaned_data['text']
-            )
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, self.get_context(request, slug))
 
 
 class TaggedPostView(ListView):
@@ -101,7 +92,7 @@ class PostUpdateView(SlugMixin, UpdateView):
     model = Post
     template_name = 'posts/post_update.html'
     context_object_name = 'post'
-    fields = ['h1', 'title', 'description', 'content', 'image', 'tags']
+    form_class = PostForm
 
     def get_success_url(self):
         return reverse_lazy('post_detail', kwargs={'slug': self.object.url})

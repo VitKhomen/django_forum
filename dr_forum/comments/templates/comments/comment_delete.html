@@ -1,0 +1,41 @@
+{% extends 'main/index.html' %}
+
+{% block title %}Удалить сообщение{% endblock %}
+
+{% block header %}
+<section class="my-carousel">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-color: #343a40!important">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Видалити коментар</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="post-delete mt-4 mb-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 bg-white p-4 rounded shadow">
+                <div class="mb-3">
+                    <h5>{{ comment.author.username }}</h5>
+                    <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                    <p>{{ comment.text }}</p>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ object.content_object.get_absolute_url }}" class="btn btn-outline-secondary">⬅
+                            Назад</a>
+                        <button type="submit" class="btn btn-outline-danger">🗑️ Удалить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

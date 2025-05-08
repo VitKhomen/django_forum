@@ -1,0 +1,49 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block title %}Редагувати коментар{% endblock %}
+
+{% block header %}
+<section class="my-carousel">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-color: #343a40!important">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>Редагувати коментар</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="comment-update py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 bg-white p-4 rounded shadow">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                        <div class="alert alert-danger py-1 px-2 my-error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-outline-success me-2">💾 Сохранить</button>
+                        <div>
+                            <a href="{% url 'comment_delete' object.pk %}" class="btn btn-outline-danger">🗑️
+                                Удалить</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
