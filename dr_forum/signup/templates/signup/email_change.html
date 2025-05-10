@@ -1,0 +1,31 @@
+{% extends 'main/index.html' %}
+{% load static %}
+
+{% block title %}зміна ємейла{% endblock %}
+
+{% block header %}
+<section class="my-carousel">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-color: #343a40!important">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>зміна ємейла</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm rounded">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-outline-success">💾 Сохранить</button>
+            <a href="{% url 'profile' user.url %}" class="btn btn-outline-secondary">Назад</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

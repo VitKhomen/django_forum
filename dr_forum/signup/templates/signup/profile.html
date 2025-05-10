@@ -14,13 +14,18 @@
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d E Y, H:i" }}</p>
 
-                <div class="mt-4">
-                    <a href="{% url 'user_posts' user.url %}" class="btn btn-primary">Все посты</a>
-                    <a href="#" class="btn btn-outline-primary me-2">Сменить пароль</a>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger me-2">Выход</button>
-                    </form>
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <a href="{% url 'user_posts' user.url %}" class="btn btn-primary me-2">Все посты</a>
+                        <a href="{% url 'pass_change' %}" class="btn btn-outline-primary me-2">Сменить пароль</a>
+                        <a href="{% url 'email_change' %}" class="btn btn-outline-primary">Сменить емейл</a>
+                    </div>
+                    <div>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger">Выход</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

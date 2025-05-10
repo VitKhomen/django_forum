@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # DEBUG = os.getenv('DEBUG', 'False') == 'True'
 DEBUG = 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost ']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -86,10 +86,11 @@ WSGI_APPLICATION = 'dr_forum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
-        conn_max_age=600
+        conn_max_age=600,
     )
 }
 # DATABASES = {
