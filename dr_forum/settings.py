@@ -34,7 +34,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # DEBUG = 'True'
 
 ALLOWED_HOSTS = ['ce-sho-take-forum.com',
-                 'www.ce-sho-take-forum.com',]
+                 'www.ce-sho-take-forum.com',
+                 'django-forum-gjgb.onrender.com',]
 
 
 # Application definition
