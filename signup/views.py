@@ -16,6 +16,11 @@ class RegisterView(CreateView):
     template_name = 'signup/register.html'
     success_url = reverse_lazy('main')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'files': self.request.FILES})
+        return kwargs
+
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
