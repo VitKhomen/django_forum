@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+from cloudinary.models import CloudinaryField
 from taggit.managers import TaggableManager
 
 from utils.models import SlugifyMixin
@@ -12,8 +13,7 @@ class Post(SlugifyMixin, models.Model):
     url = models.SlugField(unique=True, blank=True, max_length=100)
     description = models.TextField()
     content = models.TextField()
-    image = models.ImageField(upload_to='post_images/',
-                              default='post_images/default.png')
+    image = CloudinaryField('post_image', default='default_post_image')
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

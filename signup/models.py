@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.db import models
 
+from cloudinary.models import CloudinaryField
+
 from utils.models import SlugifyMixin
 
 
@@ -25,8 +27,7 @@ class CustomUser(SlugifyMixin, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
     url = models.SlugField(unique=True, blank=True, max_length=100)
-    avatar = models.ImageField(
-        upload_to='avatars/', default='avatars/avatar.png')
+    avatar = CloudinaryField('avatar_image', default='default_avatar_image')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
