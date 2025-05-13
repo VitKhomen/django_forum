@@ -26,23 +26,22 @@
                             value="{{ request.GET.q }}">
                         <button class="btn btn-outline-success me-2" type="submit">Найти</button>
                     </form>
-
-                    {% if user.is_authenticated %}
-                    <span class="navbar-text me-2 text-white" style="white-space: nowrap;">
-                        Привет, {{ user.username }}!
-                    </span>
-                    <span class="navbar-text me-2" style="white-space: nowrap;">
-                        <a href="{% url 'create_post' %}" class="btn btn-outline-light btn-sm">+ Новый пост</a>
-                    </span>
-                    <a href="{% url 'profile' user.url %}" class="btn btn-outline-light btn-sm me-2">Профиль</a>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-light btn-sm me-2">Выход</button>
-                    </form>
-                    {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm me-2">Вход</a>
-                    <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm me-2">Регистрация</a>
-                    {% endif %}
+                    <div class="d-flex align-items-center flex-wrap justify-content-end text-center mb-2">
+                        {% if user.is_authenticated %}
+                        <span class="navbar-text me-2 text-white">
+                            Привет, {{ user.username }}!
+                        </span>
+                        <a href="{% url 'create_post' %}" class="btn btn-outline-light btn-sm me-2">+ Пост</a>
+                        <a href="{% url 'profile' user.url %}" class="btn btn-outline-light btn-sm me-2">Профиль</a>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm me-2">Выход</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm me-2">Вход</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm me-2">Регистрация</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
